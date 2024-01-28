@@ -12,6 +12,7 @@ import admin from "../admin/admin.vue";
 import AdminLayout from "../admin/admin_Layout.vue";
 import user from "../User/user.vue";
 import FormCandidatSaisie from "../candidats/FormCanSaisie.vue";
+import DcDownload from "../candidats/ChildComponents/DcDownload.vue";
 const routes = [
     {
         path: '/adminLayout',
@@ -25,6 +26,7 @@ const routes = [
             { name: "AddDC", component: AddDC, path: "/addDC", beforeEnter: authGuard, },
             { name: "EditDC", component: EditDC, path: "/editDC/:id", beforeEnter: authGuard, },
             { name: "FormCandidatSaisie", component: FormCandidatSaisie, path: "/formCandidatSaisie/:id", },
+            { name: "DcDownload", component: DcDownload, path: "/dcDownload/:id", beforeEnter: authGuard, },
         ]
     },
 
