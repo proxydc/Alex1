@@ -19,7 +19,13 @@ const getDCById = (req, res) => {
         res.status(200).json(results.rows);
     });
 };
-
+const getDCDocById = (req, res) => {
+    const id = req.params.id;
+    pool.query(queries.getDCDocById, [id], (error, results) => {
+        if (error) throw error;
+        res.status(200).json(results.rows[0]);
+    });
+};
 const addDC = (req, res) => {
     const { familyname, firstname, email } = req.body;
 
@@ -77,6 +83,7 @@ const updateDC = (req, res) => {
 module.exports = {
     getDCs,
     getDCById,
+    getDCDocById,
     addDC,
     updateDC,
     deleteDCById,
