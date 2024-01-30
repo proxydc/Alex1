@@ -1,7 +1,8 @@
-import http from "../http-common";
+import urldc from "../_helpers/urllist.js";
+import axios from "axios";
 
 class FormData {
-    static get(id) {
+    /*static get(id) {
 
         return http.get(`/dc/${id}`);
     }
@@ -24,7 +25,7 @@ class FormData {
         catch (err) {
             throw err;
         }
-    }
+    }*/
     static save(id, dc, document) {
         try {
             alert("id: "+id+ " dc: "+dc)
@@ -40,8 +41,8 @@ class FormData {
 
     static async updateDC(id, generatedDoc) {
         try {
-            const url = `dc/${id}`;
-            let result = await http.put(url, {
+            const url = urldc.getDcUrl(id);//`dc/${id}`;
+            let result = await axios.put(url, {
                 tags: "test",
                 document: generatedDoc,
             });
@@ -106,7 +107,7 @@ class FormData {
             var contextValue = nodes[i].childNodes[1].childNodes[0].childNodes[1].value;
             var technicalenvValue = nodes[i].childNodes[2].childNodes[1].childNodes[1].value;
 
-            var taskList = nodes[i].childNodes[2].childNodes[0].childNodes;
+            var taskList = nodes[i].childNodes[2].childNodes[0].childNodes[1].childNodes;
             var taskValues = [];
             for (let t = 0; t < taskList.length; t++) {
                 if (taskList[t].nodeName == "INPUT" && taskList[t].value) {
@@ -123,14 +124,17 @@ class FormData {
                 technical_env: technicalenvValue,
                 tasks: taskValues
             };
-            experiencesPro.push(currentExperience)
+            if(currentExperience.start!='')
+            {
+                experiencesPro.push(currentExperience)
+            }
         }
         dc.experiences = experiencesPro;
         console.log("document experiences values: " + dc.experiences[0]?.start);
         alert("document experiences values: " + dc.experiences[0]?.end);
         /* Projects perso */
         var personalProjects = [];
-        var domNodes = document.querySelectorAll("#xps .project");
+        var domNodes = document.querySelectorAll("#projects .project");
         var allNodes = [...domNodes];
         var nodes = allNodes.filter(function (i) { return i.id == "" }) // remove ghost template which have ID
 
@@ -140,7 +144,7 @@ class FormData {
             var contextValue = nodes[i].childNodes[1].childNodes[0].childNodes[1].value;
             var technicalenvValue = nodes[i].childNodes[2].childNodes[1].childNodes[1].value;
 
-            var taskList = nodes[i].childNodes[2].childNodes[0].childNodes;
+            var taskList = nodes[i].childNodes[2].childNodes[0].childNodes[1].childNodes;
             var taskValues = [];
             for (let t = 0; t < taskList.length; t++) {
                 if (taskList[t].nodeName == "INPUT" && taskList[t].value) {
@@ -155,7 +159,11 @@ class FormData {
                 technical_env: technicalenvValue,
                 tasks: taskValues
             };
-            personalProjects.push(currentProject)
+            if(currentProject.period!='')
+            {
+                personalProjects.push(currentProject)
+            }
+            
             console.log("document curr projects values: " + currentProject.period);
         }
 

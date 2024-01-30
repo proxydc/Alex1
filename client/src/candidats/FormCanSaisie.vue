@@ -42,11 +42,12 @@
             </div>
           </div>
 
-          <Experience :experiences="dc.document.experiences" :projects="dc.document.projects" :xpAddedCounter=0 />
+          <ExperiencePro :experiences="dc.document.experiences" :xpAddedCounter=0 />
+          <ExperiencePerso :projects="dc.document.projects" :xpAddedCounter=0 />
 
           <div class="container dc-section">
             <div class="row align-items-center dc-syn-item">
-              <div class="col col-2">
+              <div class="col col-2"> 
                 <label class="col-form-label" for="syn_env"
                   >Environnement</label
                 >
@@ -149,10 +150,12 @@ import AbilityFonc from "./ChildComponents/DcAbilityFonc.vue";
 import AbilityTech from "./ChildComponents/DcAbilityTech.vue";
 import Certification from "./ChildComponents/DcCertification.vue";
 import Language from "./ChildComponents/DcLanguage.vue";
-import Experience from "./ChildComponents/DcExperience.vue";
-//import axios from "axios";
+import ExperiencePro from "./ChildComponents/DcExperiencePro.vue";
+import ExperiencePerso from "./ChildComponents/DcExperiencePerso.vue";
+import urldc from "../_helpers/urllist.js";
+import axios from "axios";
 import FormData from "./FormData";
-import http from "../http-common";
+
 
 export default {
   components: {
@@ -161,7 +164,8 @@ export default {
     AbilityTech,
     Certification,
     Language,
-    Experience,
+    ExperiencePro,
+    ExperiencePerso,
   },
   name: "formCandidatSaisie",
   data() {
@@ -214,9 +218,8 @@ export default {
   methods: {
     getDC(id) {
       try {
-        const url = `dc/${id}`;
-       // alert("urldc: " + url);
-        http.get(url).then((res) => {
+        const url = urldc.getDcUrl(id);//`dc/${id}`;
+        axios.get(url).then((res) => {
           console.log(res.data);
           this.form = res.data;
         });
@@ -233,6 +236,8 @@ export default {
       try {
         alert("idwork: "+ this.documentId)
         FormData.save(this.$route.params.id, dc.document, document);
+        location.reload();
+        //this.$router.push({ path: '/formCandidatSaisie/'+ this.documentId})
       } catch (err) {
         this.errormsg = err;
       }

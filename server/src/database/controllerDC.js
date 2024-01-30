@@ -62,7 +62,8 @@ const deleteDCById = (req, res) => {
     });
 };
 
-const updateDC = (req, res) => {
+
+const updateDCDoc = (req, res) => {
     const id = req.params.id;
     const { tags, document } = req.body;
     pool.query(queries.getDCById, [id], (error, results) => {
@@ -71,7 +72,23 @@ const updateDC = (req, res) => {
             res.send("Candidat does not exist in the database");
         }
         else {
-            pool.query(queries.updateDC, [id, tags, document], (error, results) => {
+            pool.query(queries.updateDCDoc, [id, document], (error, results) => {
+                if (error) throw error;
+                res.status(200).send("Candidat updated Successfully!");
+            });
+        }
+    });
+};
+const updateDCByAdmin = (req, res) => {
+    const id = req.params.id;
+    const { familyname, firstname, email, dc_status, tags } = req.body;
+    pool.query(queries.getDCById, [id], (error, results) => {
+        const noDCFound = !results.rows.length;
+        if (noDCFound) {
+            res.send("Candidat does not exist in the database");
+        }
+        else {
+            pool.query(queries.updateDCByAdmin, [id, familyname, firstname, email, dc_status, tags], (error, results) => {
                 if (error) throw error;
                 res.status(200).send("Candidat updated Successfully!");
             });
@@ -79,12 +96,20 @@ const updateDC = (req, res) => {
     });
 };
 
+const getAllDcStatus = (req, res) => {
+    pool.query(queries.getAllDcStatus, (error, results) => {
+        if (error) throw error;
+        res.status(200).json(results.rows);
+    })
+};
 
 module.exports = {
     getDCs,
     getDCById,
     getDCDocById,
     addDC,
-    updateDC,
+    updateDCDoc,
+    updateDCByAdmin,
     deleteDCById,
+    getAllDcStatus,
 };

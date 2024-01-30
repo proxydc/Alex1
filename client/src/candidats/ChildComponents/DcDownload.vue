@@ -5,9 +5,9 @@
 </template>
 <script>
 import { Document, Paragraph, Packer, TextRun } from "docx";
-import http from "../../http-common";
 const FileSaver = require("file-saver");
-
+import urldc from "../../_helpers/urllist.js";
+import axios from "axios";
 export default {
   data() {
     return {
@@ -28,9 +28,9 @@ export default {
   methods: {
     createDoc() {
       try {
-        const url = `dc/doc/${this.documentId}`;
+        const url = urldc.getDcDocUrl(this.documentId);//`dc/doc/${this.documentId}`;
          alert("urldc: " + url);
-        http.get(url).then((res) => {
+         axios.get(url).then((res) => {
           console.log("docdata: " + res);
           this.dbDoc = res.data;
         });

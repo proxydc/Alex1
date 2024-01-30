@@ -21,15 +21,12 @@
         </label>
       </div>
       <button v-on:click="updateAccount">Update Account</button>
-    <!--  <p>
-        <router-link to="/">Home</router-link>
-      </p> -->
     </div>
   </div>
 </template>
 
 <script>
-//import BackEndService from "../BackEndService";
+import urlacc from "../_helpers/urllist.js";
 import axios from "axios";
 
 export default {
@@ -56,7 +53,7 @@ export default {
   methods: {
 
     getAccountData(accountId) {
-      const url = `http://localhost:3000/api/v1/database/account/${accountId}`;
+      const url = urlacc.getEditAccUrl(accountId);
       alert("url: " + url);
       axios.get(url).then(res => {
         console.log(res.data)
@@ -72,7 +69,7 @@ export default {
 
     async updateAccount() {
       try {
-        const url = `http://localhost:3000/api/v1/database/account/${this.model.account.id}`;
+        const url = urlacc.getEditAccUrl(this.model.account.id);
         let result = await axios.put(url, {
           display_name: this.model.account.display_name,
           pass_word: this.model.account.pass_word,

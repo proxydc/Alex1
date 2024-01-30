@@ -20,17 +20,13 @@
         </label>
       </div>
       <button v-on:click="addAccount">Add Account</button>
-    <!--  <p>
-        <router-link to="/">Home</router-link>
-      </p> -->
     </div>
   </div>
 </template>
 
 <script>
-//import BackEndService from "../BackEndService";
 import axios from "axios";
-
+import urlacc from "../_helpers/urllist.js";
 export default {
   name: "AddAccount",
   data() {
@@ -50,7 +46,7 @@ export default {
   methods: {
     async addAccount() {
       try{
-      const url = "http://localhost:3000/api/v1/database/account/add";
+      const url = urlacc.getAddAccUrl();//"http://localhost:3000/api/v1/database/account/add";
       alert("url" + url + " login: " + this.model.account.login_name + " displayname: " + this.model.account.display_name + " role_id: " + this.model.account.role_id);
       let result = await axios.post(url, {
         login_name: this.model.account.login_name,
@@ -60,13 +56,11 @@ export default {
       });
       console.warn(result);
       if (result.status == 201) {
-        alert(result.data);
         localStorage.setItem("user-info", JSON.stringify(result.data))
         this.$router.push({ name: 'admin' })
       }
     }
     catch(err) {
-      alert(err)
         this.errlst = err.errors
     }
     },

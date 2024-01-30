@@ -14,7 +14,10 @@ router.get("/dc", controllerDC.getDCs);
 router.post("/dc/add", controllerDC.addDC);
 router.get("/dc/:id", controllerDC.getDCById);
 router.get("/dc/doc/:id", controllerDC.getDCDocById);
-router.put("/dc/:id", controllerDC.updateDC);
+router.put("/dc/:id", controllerDC.updateDCDoc);
+router.put("/dcAdmin/:id", controllerDC.updateDCByAdmin);
 router.delete("/dc/:id", controllerDC.deleteDCById);
+
+router.get("/dc-status", controllerDC.getAllDcStatus);
 
 module.exports = router;
