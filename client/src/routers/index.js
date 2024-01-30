@@ -4,7 +4,6 @@ import AddDC from "../admin/AddDC.vue";
 import EditDC from "../admin/EditDC.vue";
 import Home from "../components/Home.vue";
 import LoginAccount from "../components/LoginAccount.vue";
-import AppDashboard from "../AppDashboard.vue";
 import NotFound from "../components/NotFound"
 import { createRouter, createWebHistory } from "vue-router";
 import { authGuard } from "../_helpers/auth-guard";
@@ -29,33 +28,16 @@ const routes = [
             { name: "DcDownload", component: DcDownload, path: "/dcDownload/:id", beforeEnter: authGuard, },
         ]
     },
-
     {
         name: "Home",
         component: Home,
         path: "/",
     },
-
-
-
     {
         name: "LoginAccount",
         component: LoginAccount,
         path: "/login",
-        //beforeEnter: authGuard,
     },
-
-    {
-        name: "AppDashboard",
-        component: AppDashboard,
-        path: "/appDashboard",
-        beforeEnter: authGuard,//=='admin' || authGuard=='user',
-    },
-   /* {
-        name: "FormCandidatSaisie",
-        component: FormCandidatSaisie,
-        path: "/formCandidatSaisie/:id",
-    },*/
     {
         name: "NotFound",
         component: NotFound,

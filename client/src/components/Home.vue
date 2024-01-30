@@ -6,11 +6,10 @@
 </template>
 
 <script>
-//import BackEndService from "../BackEndService";
-import axios from "axios";
+//import axios from "axios";
 export default {
   name: "Home",
-  data() {
+ /* data() {
     return {
       AcRows: [],
       error: "",
@@ -23,7 +22,6 @@ export default {
       localStorage.setItem('token', '');
       localStorage.setItem('useraccount', '');
       localStorage.setItem('user-info', '');
-      //this.AcRows = BackEndService.getLogins();
       this.getLogins();
       console.log("data: " + this.AcRows);
     } catch (err) {
@@ -39,18 +37,12 @@ export default {
      this.AcRows = await JSON.stringify(result.data) ;
      alert("rrr"+this.AcRows);
          console.log(this.AcRows)*/
-      axios.get(url).then(res => {
+      /*axios.get(url).then(res => {
         console.log(res.data)
         this.AcRows = res.data;
       });
     }
-  },
+  },*/
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-a.btn-sm {
-  margin-right: 5px;
-}
-</style>

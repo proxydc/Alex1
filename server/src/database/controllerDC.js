@@ -30,7 +30,7 @@ const addDC = (req, res) => {
     const { familyname, firstname, email } = req.body;
 
     //check if DC exists
-    pool.query(queries.checkDCExists, [familyname, firstname,], (error, results) => {
+    pool.query(queries.checkDCExists, [email], (error, results) => {
         if (results.rows.length) {
             res.send("Candidat already exists.");
         }
