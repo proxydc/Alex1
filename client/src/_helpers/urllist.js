@@ -6,9 +6,12 @@ class urllist {
     static getAddAccUrl() {
         return baseURL + "account/add";
     }
-    static getEditAccUrl(id) {
+    static getEditDelAccUrl(id) {
         return baseURL + "account/" + id;
-    }    
+    } 
+    static getDcsUrl() {
+        return baseURL + "dc";
+    }   
     static getDcUrl(id) {
         return baseURL + "dc/" + id;
     }
@@ -18,6 +21,12 @@ class urllist {
     static getDcAdminUrl(id) {
         return baseURL + "dcAdmin/" + id;
     }
+    static getAddDcUrl() {
+        return baseURL + "dc/add";
+    }
+    static getDelDcUrl(id) {
+        return baseURL + "dc/" + id;
+    } 
     /*static update(id, data, isCompleted) {
         return baseurl.put(`/dc/${id}?completed=${isCompleted}`, data);
     }

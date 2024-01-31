@@ -50,26 +50,16 @@
         <option v-bind:value="2">Saisie Encours</option>
         <option v-bind:value="3">Finalisé</option>
         <option v-bind:value="4">Terminé</option>
-      </datalist>
-        <b-dropdown text="Button text via Prop" v-model="model.candidat.status" class="m-md-2">
-          <b-dropdown-item v-bind:value="1">Initialisé</b-dropdown-item>
-          <b-dropdown-item v-bind:value="2">Saisie Encours</b-dropdown-item>
-          <b-dropdown-item v-bind:value="3">Finalisé</b-dropdown-item>
-          <b-dropdown-item v-bind:value="4">Terminé</b-dropdown-item>
-        </b-dropdown>       
+      </datalist>      
       </div>
-
       <button v-on:click="updateCandidat">Update Candidat</button>
-      <!--  <p>
-        <router-link to="/">Home</router-link>
-      </p> -->
     </div>
   </div>
 </template>
 
 <script>
-//import BackEndService from "../BackEndService";
 import axios from "axios";
+import urldc from "../_helpers/urllist.js";
 
 export default {
   name: "EditCandidat",
@@ -82,6 +72,9 @@ export default {
           firstname: { type: String, required: true },
           familyname: { type: String, required: true },
           email: { type: String, required: true },
+          status: {type: Number},
+          status_name: {type: String},
+          tags: {type: String},
         },
       },
     };
@@ -92,7 +85,7 @@ export default {
 
   methods: {
     getCandidatData(dcId) {
-      const url = `http://localhost:3000/api/v1/database/dc/${dcId}`;
+      const url = urldc.getDcUrl(dcId);// `http://localhost:3000/api/v1/database/dc/${dcId}`;
       alert("url: " + url);
       axios
         .get(url)
@@ -110,11 +103,13 @@ export default {
     async updateCandidat() {
       alert("status: "+ this.model.candidat.status);
       try {
-        const url = `http://localhost:3000/api/v1/database/dc/${this.model.candidat.id}`; //get dcadmin url
+        const url = urldc.getDcAdminUrl(this.model.candidat.id);
         let result = await axios.put(url, {
-          firstname: this.model.candidat.firstname,
           familyname: this.model.candidat.familyname,
+          firstname: this.model.candidat.firstname,
           email: this.model.candidat.email,
+          dc_status: this.model.candidat.status,
+          tags: this.model.candidat.tags,
         });
         console.log(result);
         if (result.status == 200) {

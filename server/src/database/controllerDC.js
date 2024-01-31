@@ -65,14 +65,14 @@ const deleteDCById = (req, res) => {
 
 const updateDCDoc = (req, res) => {
     const id = req.params.id;
-    const { tags, document } = req.body;
+    const { dc_status, document } = req.body;
     pool.query(queries.getDCById, [id], (error, results) => {
         const noDCFound = !results.rows.length;
         if (noDCFound) {
             res.send("Candidat does not exist in the database");
         }
         else {
-            pool.query(queries.updateDCDoc, [id, document], (error, results) => {
+            pool.query(queries.updateDCDoc, [id, document, dc_status], (error, results) => {
                 if (error) throw error;
                 res.status(200).send("Candidat updated Successfully!");
             });

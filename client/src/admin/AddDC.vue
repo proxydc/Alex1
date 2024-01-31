@@ -14,9 +14,8 @@
 </template>
 
 <script>
-//import BackEndService from "../BackEndService";
 import axios from "axios";
-
+import urldc from "../_helpers/urllist.js";
 export default {
   name: "AddDC",
   data() {
@@ -35,7 +34,7 @@ export default {
   methods: {
     async addDC() {
       try{
-      const url = "http://localhost:3000/api/v1/database/dc/add";
+      const url = urldc.getAddDcUrl();
       alert("url" + url );
       let result = await axios.post(url, {
         familyname: this.model.dc.familyname,

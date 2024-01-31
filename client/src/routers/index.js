@@ -4,7 +4,8 @@ import AddDC from "../admin/AddDC.vue";
 import EditDC from "../admin/EditDC.vue";
 import Home from "../components/Home.vue";
 import LoginAccount from "../components/LoginAccount.vue";
-import NotFound from "../components/NotFound"
+import NotFound from "../components/NotFound";
+import PageEnd from "../components/PageEnd";
 import { createRouter, createWebHistory } from "vue-router";
 import { authGuard } from "../_helpers/auth-guard";
 import admin from "../admin/admin.vue";
@@ -42,6 +43,11 @@ const routes = [
         name: "NotFound",
         component: NotFound,
         path: "/:pathMatch(.*)*",
+    },
+    {
+        name: "PageEnd",
+        component: PageEnd,
+        path: "/pageEnd",
     },
 ];
 

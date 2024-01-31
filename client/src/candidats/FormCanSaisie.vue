@@ -130,7 +130,7 @@
                 <button
                   type="button"
                   class="btn btn-success"
-                  @click="saveAndClose"
+                  @click="saveAndClose(dc)"
                 >
                   Marquer comme finalisé
                 </button>
@@ -189,10 +189,8 @@ export default {
   },
   computed: {
     getDocument() {
-      //alert("iam in etdocument");
       console.log("document: " + this.form);
       this.document = JSON.stringify(this.form?.document);
-      //alert("document:" + this.document?.bref);
     },
   },
   /* mounted() {
@@ -207,7 +205,6 @@ export default {
   created() {
     try {
       this.documentId =this.$route.params.id;
-      //alert("ID: "+this.documentId);
       console.log("Iam here");
       this.getDC(this.$route.params.id);
       console.log("data: " + this.form);
@@ -218,7 +215,7 @@ export default {
   methods: {
     getDC(id) {
       try {
-        const url = urldc.getDcUrl(id);//`dc/${id}`;
+        const url = urldc.getDcUrl(id);
         axios.get(url).then((res) => {
           console.log(res.data);
           this.form = res.data;
@@ -226,41 +223,28 @@ export default {
       } catch (err) {
         this.errormsg = err;
       }
-      /*try {
-        this.form = FormData.getDC(id);
-      } catch (err) {
-        this.errormsg = err;
-      }*/
     },
     save(dc) {
       try {
         alert("idwork: "+ this.documentId)
-        FormData.save(this.$route.params.id, dc.document, document);
+        const status = 2;
+        FormData.save(this.$route.params.id, dc.document, document, status);
         location.reload();
-        //this.$router.push({ path: '/formCandidatSaisie/'+ this.documentId})
       } catch (err) {
         this.errormsg = err;
       }
     },
-    /* async getDC(id) {
-      const url = `http://localhost:3000/api/v1/database/dc/${id}`;
-      alert("urldc: " + url);
-      let result = await axios.get(url);
-             console.warn(result);
-             if (result.status == 200) {
-                const res =  await JSON.stringify(result.data[0]);
-                this.familyname = await res.familyname;
-                 alert("result :"+res);
-                 alert("result :"+this.familyname);
-         }
-        console.log(res.data);
-    },*/
-    /* addRow() {
-      var container = document.getElementById("fonct");
-      var newInput = document.createElement("input");
-      newInput.classList = "form-control dc-vlist dc-tmp";
-      container.appendChild(newInput);
-    },*/
+    saveAndClose(dc)
+    {
+      try {
+        alert("idwork: "+ this.documentId)
+        const status = 3;
+        FormData.save(this.$route.params.id, dc.document, document, status);
+        this.$router.push({ name: "PageEnd"})
+      } catch (err) {
+        this.errormsg = err;
+      }
+    },
   },
 };
 </script>

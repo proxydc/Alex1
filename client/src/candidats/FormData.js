@@ -26,11 +26,11 @@ class FormData {
             throw err;
         }
     }*/
-    static save(id, dc, document) {
+    static save(id, dc, document, status) {
         try {
             alert("id: "+id+ " dc: "+dc)
             let generatedDocumentObj = this.getDocumentObject(dc, document);
-            this.updateDC(id, generatedDocumentObj);
+            this.updateDC(id, generatedDocumentObj, status);
             alert("Updated document successfully!");
         }
         catch (err) {
@@ -39,11 +39,11 @@ class FormData {
 
     }
 
-    static async updateDC(id, generatedDoc) {
+    static async updateDC(id, generatedDoc, status) {
         try {
             const url = urldc.getDcUrl(id);//`dc/${id}`;
             let result = await axios.put(url, {
-                tags: "test",
+                dc_status: status,
                 document: generatedDoc,
             });
             console.warn(result);

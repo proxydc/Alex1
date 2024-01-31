@@ -39,6 +39,7 @@
 <script>
 import axios from "axios";
 import Admin_Layout from "../admin/admin_Layout.vue";
+import urlacc from "../_helpers/urllist.js";
 export default {
     name: "admin",
     data() {
@@ -58,20 +59,16 @@ export default {
     },
     methods: {
         getLogins() {
-            const url = 'http://localhost:3000/api/v1/database/account';
-            /*let result = await axios.get(url);
-           this.AcRows = await JSON.stringify(result.data) ;
-           alert("rrr"+this.AcRows);
-               console.log(this.AcRows)*/
+            const url = urlacc.getLoginUrl();// 'http://localhost:3000/api/v1/database/account';
             axios.get(url).then(res => {
                 console.log(res.data);
                 this.AcRows = res.data;
             });
         },
         deleteAccount(accountId) {
-            alert("account: " + accountId);
+            //alert("account: " + accountId);
             if (confirm('Are you sure, you want to delete this account. Account Id: ' + accountId)) {
-                const url = `http://localhost:3000/api/v1/database/account/${accountId}`;
+                const url = urlacc.getEditDelAccUrl(accountId);// `http://localhost:3000/api/v1/database/account/${accountId}`;
                 alert("url: " + url);
                 axios.delete(url).then(res => {
                     console.log(res.data);

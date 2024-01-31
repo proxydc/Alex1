@@ -53,7 +53,7 @@ export default {
   methods: {
 
     getAccountData(accountId) {
-      const url = urlacc.getEditAccUrl(accountId);
+      const url = urlacc.getEditDelAccUrl(accountId);
       alert("url: " + url);
       axios.get(url).then(res => {
         console.log(res.data)
@@ -69,7 +69,7 @@ export default {
 
     async updateAccount() {
       try {
-        const url = urlacc.getEditAccUrl(this.model.account.id);
+        const url = urlacc.getEditDelAccUrl(this.model.account.id);
         let result = await axios.put(url, {
           display_name: this.model.account.display_name,
           pass_word: this.model.account.pass_word,
