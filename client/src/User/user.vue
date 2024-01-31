@@ -60,13 +60,6 @@
                   >
                     Download
                   </a>
-                 
-
-                  <!--   <input type="button" value="Copy Url" onclick="CopyUrl(acRow.id)" />
-                 <button type="button" class="btn btn-outline-danger btn-sm" :href="'/dcDownload/' + acRow.id"
-                    target="_blank">
-                    Archiver
-                  </button>-->
                 </td>
               </tr>
             </tbody>
@@ -74,56 +67,7 @@
         </div>
       </div>
     </div>
-    <div>
-      <!--   <div class="container">
-      <div class="row">
-        <div class="col">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Bref</th>
-                <th scope="col">Skills</th>
-                <th scope="col">S-Tools</th>
-                <th scope="col">S-Environments</th>
-                <th scope="col">Technicals</th>
-                <th scope="col">Fuctionals</th>
-                <th scope="col">Lanuages</th>
-                <th scope="col">Databases</th>
-              </tr>
-            </thead>
-            <tbody class="table-group-divider">
-              <tr v-for="(acRow, index) in this.AcRows" :key="index">
-                <th scope="row">{{ acRow.document.bref }}</th>
-                <td>{{ acRow.document.skills }}</td>
-                <td>{{ acRow.document.skills.tools }}</td>
-                <td>{{ acRow.document.skills.environments }}</td>
-                <td>{{ acRow.document.technicalAbilities }}</td>
-                <td>{{ acRow.document.functionalAbilities }}</td>
-                <td>{{ acRow.document.languages }}</td>
-                <td>{{ acRow.document.skills.databases }}</td>
-                <td>
-                  <a class="btn btn-success mx-2" :href="'/editDC/' + acRow.id">
-                    Edit
-                  </a>
-                  <button type="button" class="btn btn-danger mx-2" @click="deleteDC(acRow.id)">
-                    Delete
-                  </button>
-                  <button type="button" class="btn btn-danger mx-2" @click="goToDC(acRow.id)">
-                    Voir
-                  </button>
-                  <a class="btn btn-outline-primary btn-sm" :href="'/appForm/' + acRow.id">
-                    Voir le dossier
-                  </a>
-                  <button type="button" class="btn btn-outline-danger btn-sm">
-                    Archiver
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div> -->
+    <div>   
     </div>
   </div>
 </template>
@@ -142,7 +86,6 @@ export default {
   },
   mounted() {
     try {
-      //console.log("Iam here");
       this.getDCs();
       console.log("data: " + this.AcRows);
     } catch (err) {
@@ -151,7 +94,7 @@ export default {
   },
   methods: {
     getDCs() {
-      const url = urldc.getDcsUrl(); // 'http://localhost:3000/api/v1/database/dc';
+      const url = urldc.getDcsUrl(); 
       //alert("urldc: " + url);
       axios.get(url).then((res) => {
         console.log(res.data);
@@ -164,7 +107,7 @@ export default {
     deleteDC(dcId) {
       alert("DC: " + dcId);
       if (confirm("Are you sure, you want to delete this dc. DC Id: " + dcId)) {
-        const url = urldc.getDelDcUrl(dcId); // `http://localhost:3000/api/v1/database/dc/${dcId}`;
+        const url = urldc.getDelDcUrl(dcId); 
         alert("url: " + url);
         axios
           .delete(url)
